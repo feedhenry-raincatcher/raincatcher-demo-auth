@@ -5,7 +5,7 @@
     "body-parser": "1.15.0",
     "cors": "2.7.1",
     "express": "4.13.4",
-    "fh-mbaas-api": "5.11.2",
+    "fh-mbaas-api": "5.12.14",
     "fh-wfm-mediator": "0.0.13",
     "fh-wfm-user": "0.0.19",
     "lodash": "4.7.0",
@@ -34,9 +34,11 @@
   },
   "main": "application.js",
   "scripts": {
+    "preinstall": "npm install node-gyp node-pre-gyp",
     "test": "grunt unit",
     "debug": "grunt serve",
     "start": "node application.js"
   },
   "license": "MIT"
 }
+
