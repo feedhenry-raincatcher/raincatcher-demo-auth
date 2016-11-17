@@ -1,13 +1,13 @@
 {
   "name": "fh-app",
-  "version": "2.0.0-alpha.9",
+  "version": "2.0.0-alpha.10",
   "dependencies": {
     "body-parser": "1.15.0",
     "cors": "2.7.1",
     "express": "4.14.0",
     "fh-mbaas-api": "6.0.1",
     "fh-wfm-mediator": "0.0.15",
-    "fh-wfm-user": "0.0.23",
+    "fh-wfm-user": "0.0.24-alpha.1",
     "lodash": "4.7.0",
     "request": "2.78.0",
     "shortid": "^2.2.6"
