@@ -72,6 +72,33 @@ var runApp = function() {
   });
 };
 
+exports['test instantiate the user module with the required parameters'] = function(done) {
+  runApp();
+
+  // stub the init function in the mbass router in fh-wfm-user
+  var authInit = sinon.stub(require('fh-wfm-user/lib/router/mbaas'), 'init');
+  authInit.yields();
+
+  // setup paramaters to send
+  var expectedMediator = {};
+  var expectedApp = {};
+  var expectedAuthResponseExclusionList = ['password'];
+
+  // setup spy, this will spy on the init method in the mbass router in fh-wfm-user
+  var callback = sinon.spy();
+
+  // called the init function in the mbass router in fh-wfm-user
+  require('fh-wfm-user/lib/router/mbaas').init(expectedMediator, expectedApp, expectedAuthResponseExclusionList, callback);
+
+  authInit.restore();
+
+  // confrm that the function was called with the correct parameters
+  sinon.assert.calledOnce(callback);
+  sinon.assert.calledWith(authInit, expectedMediator, expectedApp, expectedAuthResponseExclusionList);
+
+  return done();
+};
+
 exports['test express app listen is called'] = function(done) {
   var mock = sinon.mock(mockExpress);
   mock.expects("listen").once().withArgs(8001, '0.0.0.0');
