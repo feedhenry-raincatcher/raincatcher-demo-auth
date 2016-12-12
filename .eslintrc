@@ -1,7 +1,11 @@
 {
   "env": {
-    "node": true
+    "node": true,
+    "mocha": true
   },
+  "parserOptions": {
+     "ecmaVersion": 6
+    },
   "extends": "eslint:recommended",
   "rules": {
     "array-callback-return": "warn",
@@ -26,7 +30,8 @@
     "curly": ["error", "all"]
   },
   "globals": {
-    "angular": false
+    "angular": false,
+    "$fh": false,
+    "localStorage": false
   }
 }
-

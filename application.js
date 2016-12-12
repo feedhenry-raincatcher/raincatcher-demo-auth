@@ -4,6 +4,7 @@ var mbaasExpress = mbaasApi.mbaasExpress();
 var cors = require('cors');
 var mediator = require('fh-wfm-mediator/lib/mediator');
 var bodyParser = require('body-parser');
+var raincatcherUser = require('fh-wfm-user/lib/router/mbaas');
 
 // list the endpoints which you want to make securable here
 var securableEndpoints;
@@ -26,7 +27,11 @@ app.use(mbaasExpress.fhmiddleware());
 
 app.use('/hello', require('./lib/hello.js')());
 app.use('/api', bodyParser.json({limit: '10mb'}));
-require('fh-wfm-user/lib/router/mbaas')(mediator, app);
+
+// list the user fields which you don't want appearing in the authentication response.
+// This is being consumed in the raincacther-user mbaas router.
+var authResponseExclusionList = ['password'];
+raincatcherUser.init(mediator, app, authResponseExclusionList);
 
 // app modules
 require('./lib/user')(mediator);
