@@ -30,7 +30,8 @@
     "curly": ["error", "all"]
   },
   "globals": {
-    "angular": false
+    "angular": false,
+    "$fh": false,
+    "localStorage": false
   }
 }
-
