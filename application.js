@@ -77,6 +77,9 @@ function run(cb) {
 
 module.exports = run;
 
+// We need to allow this file to be required with a node-style callback in order
+// to support unit testing since application initialization is async
+// But if this file is run directly it should just run the express application
 if (require.main === module) {
   // file called directly, run app from here
   run(function(err, port) {
