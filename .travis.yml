@@ -11,7 +11,7 @@ before_install:
   - npm install nsp -g
   - npm install grunt-cli -g
 script:
-  - npm run-script grunt-eslint
+  - npm run-script eslint
   - nsp check; exit 0
   - bash <(curl https://gist.githubusercontent.com/raincatcher-bot/01ac4cdb3b0770bdb58489dbc17ed6b6/raw/6205a628c3616f6736fd866d5f0fba0a781ec1e4/sonarqube.sh)
 install: npm install
