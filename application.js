@@ -45,30 +45,50 @@ var sessionOptions = {
 };
 
 // find out mongodb connection string from $fh.db
-$fh.db({
-  act: 'connectionString'
-}, function(err, connectionString) {
-  if (err || !connectionString) {
-    console.log('$fh.db connectionString not found, assuming database on localhost');
-  } else {
-    sessionOptions.url = connectionString;
-  }
-  // List the user fields which you don't want appearing in the authentication response.
-  // This is being consumed in the raincatcher-user mbaas router.
-  var authResponseExclusionList = ['password'];
-  raincatcherUser.init(mediator, app, authResponseExclusionList, sessionOptions, function(err) {
+function run(cb) {
+  $fh.db({
+    act: 'connectionString'
+  }, function(err, connectionString) {
+    if (err || !connectionString) {
+      console.log('$fh.db connectionString not found, assuming database on localhost');
+    } else {
+      sessionOptions.url = connectionString;
+    }
+    // List the user fields which you don't want appearing in the authentication response.
+    // This is being consumed in the raincatcher-user mbaas router.
+    var authResponseExclusionList = ['password'];
+    raincatcherUser.init(mediator, app, authResponseExclusionList, sessionOptions, function(err) {
+      console.log('after user init')
+      if (err) {
+        return console.error(err);
+      }
+      require('./lib/user')(mediator);
+      console.log('after user require')
+
+      // Important that this is last!
+      app.use(mbaasExpress.errorHandler());
+
+      var port = process.env.FH_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8001;
+      var host = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+      console.log('before listen', app.listen)
+      app.listen(port, host, function(err) {
+        console.log('after listen')
+        cb(err, port);
+      });
+    });
+  });
+}
+
+module.exports = run;
+
+if (require.main === module) {
+  // file called directly, run app from here
+  run(function(err, port) {
     if (err) {
       return console.error(err);
     }
-    require('./lib/user')(mediator);
-
-    // Important that this is last!
-    app.use(mbaasExpress.errorHandler());
-
-    var port = process.env.FH_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8001;
-    var host = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-    app.listen(port, host, function() {
-      console.log("App started at: " + new Date() + " on port: " + port);
-    });
+    console.log("App started at: " + new Date() + " on port: " + port);
   });
-});
+} else {
+  console.log('application.js required by another file, not running application');
+}
