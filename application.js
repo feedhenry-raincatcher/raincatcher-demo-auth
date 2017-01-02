@@ -61,16 +61,16 @@ function run(cb) {
       if (err) {
         return console.error(err);
       }
-      require('./lib/user')(mediator);
+      return require('./lib/user')(mediator).then(function() {
+        // Important that this is last!
+        app.use(mbaasExpress.errorHandler());
 
-      // Important that this is last!
-      app.use(mbaasExpress.errorHandler());
-
-      var port = process.env.FH_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8001;
-      var host = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-      app.listen(port, host, function(err) {
-        cb(err, port);
-      });
+        var port = process.env.FH_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8001;
+        var host = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
+        app.listen(port, host, function() {
+          cb(null, port);
+        });
+      }).catch(cb);
     });
   });
 }
