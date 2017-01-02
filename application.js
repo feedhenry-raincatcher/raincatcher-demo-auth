@@ -58,21 +58,17 @@ function run(cb) {
     // This is being consumed in the raincatcher-user mbaas router.
     var authResponseExclusionList = ['password'];
     raincatcherUser.init(mediator, app, authResponseExclusionList, sessionOptions, function(err) {
-      console.log('after user init')
       if (err) {
         return console.error(err);
       }
       require('./lib/user')(mediator);
-      console.log('after user require')
 
       // Important that this is last!
       app.use(mbaasExpress.errorHandler());
 
       var port = process.env.FH_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8001;
       var host = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
-      console.log('before listen', app.listen)
       app.listen(port, host, function(err) {
-        console.log('after listen')
         cb(err, port);
       });
     });
