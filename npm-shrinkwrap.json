@@ -68,9 +68,9 @@
       "resolved": "https://registry.npmjs.org/boom/-/boom-2.10.1.tgz"
     },
     "bson": {
-      "version": "1.0.2",
-      "from": "bson@>=1.0.1 <1.1.0",
-      "resolved": "https://registry.npmjs.org/bson/-/bson-1.0.2.tgz"
+      "version": "1.0.3",
+      "from": "bson@>=1.0.3 <1.1.0",
+      "resolved": "https://registry.npmjs.org/bson/-/bson-1.0.3.tgz"
     },
     "buffer-shims": {
       "version": "1.0.0",
@@ -2241,7 +2241,7 @@
                 "node-uuid": {
                   "version": "1.4.7",
                   "from": "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.7.tgz",
-                  "resolved": "http://registry.npmjs.org/node-uuid/-/node-uuid-1.4.7.tgz"
+                  "resolved": "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.7.tgz"
                 },
                 "oauth-sign": {
                   "version": "0.8.1",
@@ -2297,9 +2297,9 @@
       "resolved": "https://registry.npmjs.org/fh-wfm-mediator/-/fh-wfm-mediator-0.1.0-rc2.tgz"
     },
     "fh-wfm-simple-store": {
-      "version": "0.0.2",
-      "from": "fh-wfm-simple-store@0.0.2",
-      "resolved": "https://registry.npmjs.org/fh-wfm-simple-store/-/fh-wfm-simple-store-0.0.2.tgz",
+      "version": "0.0.3",
+      "from": "fh-wfm-simple-store@0.0.3",
+      "resolved": "https://registry.npmjs.org/fh-wfm-simple-store/-/fh-wfm-simple-store-0.0.3.tgz",
       "dependencies": {
         "fh-wfm-mediator": {
           "version": "0.1.0-rc1",
@@ -2314,9 +2314,9 @@
       }
     },
     "fh-wfm-user": {
-      "version": "0.2.0-alpha.4",
-      "from": "fh-wfm-user@0.2.0-alpha.4",
-      "resolved": "https://registry.npmjs.org/fh-wfm-user/-/fh-wfm-user-0.2.0-alpha.4.tgz",
+      "version": "0.2.0-alpha.5",
+      "from": "fh-wfm-user@>=0.2.0-alpha.5 <0.3.0",
+      "resolved": "https://registry.npmjs.org/fh-wfm-user/-/fh-wfm-user-0.2.0-alpha.5.tgz",
       "dependencies": {
         "fh-mbaas-api": {
           "version": "5.14.2",
@@ -4546,14 +4546,14 @@
       "resolved": "https://registry.npmjs.org/mime-types/-/mime-types-2.1.13.tgz"
     },
     "mongodb": {
-      "version": "2.2.16",
+      "version": "2.2.18",
       "from": "mongodb@>=2.2.16 <3.0.0",
-      "resolved": "https://registry.npmjs.org/mongodb/-/mongodb-2.2.16.tgz"
+      "resolved": "https://registry.npmjs.org/mongodb/-/mongodb-2.2.18.tgz"
     },
     "mongodb-core": {
-      "version": "2.1.2",
-      "from": "mongodb-core@2.1.2",
-      "resolved": "https://registry.npmjs.org/mongodb-core/-/mongodb-core-2.1.2.tgz"
+      "version": "2.1.4",
+      "from": "mongodb-core@2.1.4",
+      "resolved": "https://registry.npmjs.org/mongodb-core/-/mongodb-core-2.1.4.tgz"
     },
     "ms": {
       "version": "0.7.1",

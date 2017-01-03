@@ -7,7 +7,7 @@
     "express": "4.14.0",
     "fh-mbaas-api": "^6.1.1",
     "fh-wfm-mediator": "0.1.0-rc2",
-    "fh-wfm-user": "0.2.0-alpha.4",
+    "fh-wfm-user": "^0.2.0-alpha.5",
     "lodash": "4.7.0",
     "request": "2.78.0",
     "shortid": "^2.2.6"
