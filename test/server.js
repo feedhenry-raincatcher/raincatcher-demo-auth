@@ -6,7 +6,6 @@ var app = express();
 app.use('/sys', mbaasExpress.sys([]));
 app.use('/mbaas', mbaasExpress.mbaas);
 app.use(mbaasExpress.fhmiddleware());
-app.use('/hello', require('lib/hello.js')());
 
 app.use('/', function(req, res) {
   res.end('Your Cloud App is Running');

@@ -1,10 +1,11 @@
 var sinon = require('sinon');
 var proxyquire = require('proxyquire');
+var assert = require('assert');
 
 // mock out express app to allow verification in tests
 var mockExpress = {
   use: function() {},
-  listen: function() {},
+  listen: sinon.stub().yields([null, 8001]),
   static: function() {}
 };
 var mockExpressApp = function() {
@@ -63,13 +64,13 @@ var mockCors = function() {
 };
 
 // require the main app file, with mocked dependencies
-var runApp = function() {
+var runApp = function(cb) {
   mockMbaasApi = createMockMbaasApi();
   proxyquire('../../application.js', {
     'express': mockExpressApp,
     'fh-mbaas-api': mockMbaasApi,
     'cors': mockCors
-  });
+  })(cb);
 };
 
 describe('Test mbass functionality', function() {
@@ -100,13 +101,15 @@ describe('Test mbass functionality', function() {
   });
 
   it('test express app listen is called', function(done) {
-    var mock = sinon.mock(mockExpress);
-    mock.expects("listen").once().withArgs(8001, '0.0.0.0');
+    // var mock = sinon.mock(mockExpress);
+    // mock.expects("listen").once().withArgs(8001, '0.0.0.0');
 
-    runApp();
-
-    mock.verify();
-    done();
+    runApp(function() {
+      assert(mockExpress.listen
+        .withArgs(8001, '0.0.0.0')
+        .calledOnce);
+      done();
+    });
   });
 
   it('test all mbaas routes are mounted', function(done) {
@@ -115,36 +118,10 @@ describe('Test mbass functionality', function() {
     mock.expects("use").once().withArgs('/mbaas', mockMbaasHandler);
     mock.expects("use").atLeast(4); // allow for other calls to use()
 
-    runApp();
+    runApp(function() {
+      mock.verify();
+      done();
+    });
 
-    mock.verify();
-    done();
-  });
-
-  it('test all mbaas setup functions are called', function(done) {
-    runApp();
-
-    // easier to use assertions here on spies instead of mocks
-    // because of the nesting of functions & handlers in fh-mbaas-api
-    sinon.assert.calledOnce(mockMbaasApi.mbaasExpress);
-    sinon.assert.calledOnce(mockSys);
-    sinon.assert.calledOnce(mockFhMiddleware);
-    sinon.assert.calledOnce(mockError);
-
-    done();
-  });
-
-  it('test all required middleware is added to express', function(done) {
-    var mock = sinon.mock(mockExpress);
-    mock.expects("use").once().withArgs(mockCorsHandler);
-    mock.expects("use").once().withArgs(mockStaticHandler);
-    mock.expects("use").once().withArgs(mockFhMiddlewareHandler);
-    mock.expects("use").once().withArgs(mockErrorHandler);
-    mock.expects("use").atLeast(3); // allow for other calls to use()
-
-    runApp();
-
-    mock.verify();
-    done();
   });
 });
