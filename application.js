@@ -35,7 +35,7 @@ app.use('/api', bodyParser.json({limit: '10mb'}));
  * {@link https://github.com/feedhenry-raincatcher/raincatcher-user/tree/master/lib/session/mongoProvider.js}
  */
 var sessionOptions = {
-  store: 'redis',
+  store: 'mongo',
   config: {
     secret: process.env.FH_COOKIE_SECRET || 'raincatcher',
     resave: false,
