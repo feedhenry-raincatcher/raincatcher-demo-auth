@@ -76,17 +76,10 @@ function run(cb) {
   });
 }
 
-module.exports = run;
-
-if (require.main === module) {
-  // file called directly, run app from here
-  run(function(err, port) {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    console.log("App started at: " + new Date() + " on port: " + port);
-  });
-} else {
-  console.log('application.js required by another file, not running application');
-}
+run(function(err, port) {
+  if (err) {
+    console.error(err);
+    process.exit(1);
+  }
+  console.log("App started at: " + new Date() + " on port: " + port);
+});
