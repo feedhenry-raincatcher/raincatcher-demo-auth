@@ -5,6 +5,7 @@ var cors = require('cors');
 var mediator = require('fh-wfm-mediator/lib/mediator');
 var bodyParser = require('body-parser');
 var raincatcherUser = require('fh-wfm-user/lib/router/mbaas');
+var sessionInit = require('./lib/sessionInit');
 
 // list the endpoints which you want to make securable here
 var securableEndpoints;
@@ -48,51 +49,9 @@ var sessionOptions = {
   }
 };
 
-/**
- * Gets mongodb connection information from $fh.db
- * Use Data Browser > Upgrade Database to get the connection information available
- */
-function mongoInit(cb) {
-  $fh.db({
-    act: 'connectionString'
-  }, function(err, connectionString) {
-    if (err) {
-      return cb(err);
-    }
-    if (!connectionString) {
-      console.log('$fh.db connectionString not found, assuming database on localhost');
-    } else {
-      console.log('$fh.db connectionString found');
-      sessionOptions.config.url = connectionString;
-    }
-    cb();
-  });
-}
-
-/**
- * Initialize parameters for redis client from default env vars supplied
- * by the platform
- */
-function redisInit(cb) {
-  sessionOptions.config.host = process.env.FH_REDIS_HOST || '127.0.0.1',
-  sessionOptions.config.port = process.env.FH_REDIS_PORT || '6379',
-  cb();
-}
-
 // find out mongodb connection string from $fh.db
 function run(cb) {
-  var initFn = function(callback) {
-    callback();
-  };
-  switch (sessionOptions.store) {
-  case 'redis':
-    initFn = redisInit;
-    break;
-  case 'mongo':
-    initFn = mongoInit;
-    break;
-  }
-  initFn(function(err) {
+  sessionInit(sessionOptions, function(err) {
     if (err) {
       return cb(err);
     }
@@ -123,7 +82,8 @@ if (require.main === module) {
   // file called directly, run app from here
   run(function(err, port) {
     if (err) {
-      return console.error(err);
+      console.error(err);
+      process.exit(1);
     }
     console.log("App started at: " + new Date() + " on port: " + port);
   });
