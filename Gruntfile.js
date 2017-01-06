@@ -2,6 +2,7 @@
 
 module.exports = function(grunt) {
   require('time-grunt')(grunt);
+  grunt.loadNpmTasks('grunt-mocha-test');
   // Project Configuration
   grunt.initConfig({
     pkg: grunt.file.readJSON('package.json'),
@@ -69,6 +70,14 @@ module.exports = function(grunt) {
     },
     'node-inspector': {
       dev: {}
+    },
+    mochaTest: {
+      test: {
+        options: {
+          run: true
+        },
+        src: ['test/unit/*.js']
+      }
     },
     shell: {
       debug: {
@@ -149,7 +158,7 @@ module.exports = function(grunt) {
 
   // Testing tasks
   grunt.registerTask('test', ['eslint', 'shell:unit', 'shell:accept']);
-  grunt.registerTask('unit', ['eslint', 'shell:unit']);
+  grunt.registerTask('unit', ['eslint','mochaTest']);
   grunt.registerTask('accept', ['env:local', 'shell:accept']);
 
   // Coverate tasks

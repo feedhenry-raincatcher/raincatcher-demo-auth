@@ -4,6 +4,7 @@ var mbaasExpress = mbaasApi.mbaasExpress();
 var cors = require('cors');
 var mediator = require('fh-wfm-mediator/lib/mediator');
 var bodyParser = require('body-parser');
+var raincatcherUser = require('fh-wfm-user/lib/router/mbaas');
 
 // list the endpoints which you want to make securable here
 var securableEndpoints;
@@ -26,7 +27,31 @@ app.use(mbaasExpress.fhmiddleware());
 
 app.use('/hello', require('./lib/hello.js')());
 app.use('/api', bodyParser.json({limit: '10mb'}));
-require('fh-wfm-user/lib/router/mbaas')(mediator, app);
+
+// Session and Cookie configuration
+// This is being consumed in the raincatcher-user mbaas router.
+var sessionOptions = {
+  store: 'mongo',
+  config: {
+    secret: process.env.FH_COOKIE_SECRET || 'raincatcher',
+    host: '127.0.0.1',
+    port: '27017',
+    db: 'session',
+    url: 'mongodb://localhost:27017/raincatcher-demo-auth-session-store',
+    resave: false,
+    saveUninitialized: true,
+    cookie: {
+      secure: process.env.NODE_ENV !== 'development',
+      httpOnly: true,
+      path: '/'
+    }
+  }
+};
+
+// List the user fields which you don't want appearing in the authentication response.
+// This is being consumed in the raincatcher-user mbaas router.
+var authResponseExclusionList = ['password'];
+raincatcherUser.init(mediator, app, authResponseExclusionList, sessionOptions);
 
 // app modules
 require('./lib/user')(mediator);
