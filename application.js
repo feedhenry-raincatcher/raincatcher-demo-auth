@@ -6,6 +6,7 @@ var mediator = require('fh-wfm-mediator/lib/mediator');
 var bodyParser = require('body-parser');
 var raincatcherUser = require('fh-wfm-user/lib/router/mbaas');
 var sessionInit = require('./lib/sessionInit');
+var adminRouter = require('./lib/routes/admin');
 
 // list the endpoints which you want to make securable here
 var securableEndpoints;
@@ -26,6 +27,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(mbaasExpress.fhmiddleware());
 
 app.use('/api', bodyParser.json({limit: '10mb'}));
+
+app.use('/admin', adminRouter(mediator));
 
 /**
  * Session and Cookie configuration

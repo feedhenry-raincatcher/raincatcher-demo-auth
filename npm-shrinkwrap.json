@@ -1842,7 +1842,7 @@
             "node-uuid": {
               "version": "1.4.7",
               "from": "node-uuid@~1.4.7",
-              "resolved": "http://registry.npmjs.org/node-uuid/-/node-uuid-1.4.7.tgz"
+              "resolved": "https://registry.npmjs.org/node-uuid/-/node-uuid-1.4.7.tgz"
             },
             "oauth-sign": {
               "version": "0.8.2",
@@ -2296,10 +2296,27 @@
       "from": "fh-wfm-mediator@0.1.0-rc2",
       "resolved": "https://registry.npmjs.org/fh-wfm-mediator/-/fh-wfm-mediator-0.1.0-rc2.tgz"
     },
+    "fh-wfm-simple-store": {
+      "version": "0.0.4",
+      "from": "fh-wfm-simple-store@0.0.4",
+      "resolved": "https://registry.npmjs.org/fh-wfm-simple-store/-/fh-wfm-simple-store-0.0.4.tgz",
+      "dependencies": {
+        "fh-wfm-mediator": {
+          "version": "0.1.0-rc1",
+          "from": "fh-wfm-mediator@0.1.0-rc1",
+          "resolved": "https://registry.npmjs.org/fh-wfm-mediator/-/fh-wfm-mediator-0.1.0-rc1.tgz"
+        },
+        "lodash": {
+          "version": "4.17.4",
+          "from": "lodash@>=4.17.2 <5.0.0",
+          "resolved": "https://registry.npmjs.org/lodash/-/lodash-4.17.4.tgz"
+        }
+      }
+    },
     "fh-wfm-user": {
-      "version": "0.2.0-alpha.8",
-      "from": "fh-wfm-user@>=0.2.0-alpha.8 <0.3.0",
-      "resolved": "https://registry.npmjs.org/fh-wfm-user/-/fh-wfm-user-0.2.0-alpha.8.tgz",
+      "version": "0.3.0-alpha.1",
+      "from": "fh-wfm-user@>=0.3.0-alpha.1 <0.4.0",
+      "resolved": "https://registry.npmjs.org/fh-wfm-user/-/fh-wfm-user-0.3.0-alpha.1.tgz",
       "dependencies": {
         "fh-mbaas-api": {
           "version": "5.14.2",
@@ -4340,9 +4357,9 @@
           }
         },
         "fh-wfm-mediator": {
-          "version": "0.0.15",
-          "from": "fh-wfm-mediator@0.0.15",
-          "resolved": "https://registry.npmjs.org/fh-wfm-mediator/-/fh-wfm-mediator-0.0.15.tgz"
+          "version": "0.1.0-rc1",
+          "from": "fh-wfm-mediator@0.1.0-rc1",
+          "resolved": "https://registry.npmjs.org/fh-wfm-mediator/-/fh-wfm-mediator-0.1.0-rc1.tgz"
         }
       }
     },
