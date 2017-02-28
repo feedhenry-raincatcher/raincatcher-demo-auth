@@ -6,8 +6,8 @@
     "cors": "2.7.1",
     "express": "4.14.0",
     "fh-mbaas-api": "6.1.5",
-    "fh-wfm-mediator": "0.1.0-rc4",
-    "fh-wfm-user": "^0.3.1-alpha.4",
+    "fh-wfm-mediator": "0.1.0",
+    "fh-wfm-user": "0.2.4",
     "lodash": "4.7.0",
     "request": "2.78.0",
     "shortid": "^2.2.6"
