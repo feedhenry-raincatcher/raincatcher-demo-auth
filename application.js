@@ -54,7 +54,7 @@ function run(cb) {
   var port = process.env.FH_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8001;
   var host = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
-  sessionOptions.appCfg = {port: port, host: host};
+  sessionOptions.appCfg = {port: port, host:host};
 
   sessionInit(app, sessionOptions, function(err) {
     if (err) {
@@ -80,7 +80,6 @@ function run(cb) {
     });
   });
 }
-
 
 module.exports = run;
 
