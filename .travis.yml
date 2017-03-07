@@ -10,7 +10,7 @@ node_js:
 before_install:
   - npm install grunt-cli -g
 script:
-  - npm run-script grunt-eslint
+  - npm test
   - bash <(curl https://gist.githubusercontent.com/raincatcher-bot/01ac4cdb3b0770bdb58489dbc17ed6b6/raw/6205a628c3616f6736fd866d5f0fba0a781ec1e4/sonarqube.sh)
 install: npm install
 notifications:

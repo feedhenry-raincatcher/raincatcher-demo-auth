@@ -6,10 +6,10 @@ var mediator = require('fh-wfm-mediator/lib/mediator');
 var bodyParser = require('body-parser');
 var raincatcherUser = require('fh-wfm-user/lib/router/mbaas');
 var sessionInit = require('./lib/sessionInit');
+var adminRouter = require('./lib/routes/admin');
 
 // list the endpoints which you want to make securable here
 var securableEndpoints;
-securableEndpoints = ['/hello'];
 
 var app = express();
 
@@ -26,8 +26,9 @@ app.use(express.static(__dirname + '/public'));
 // Note: important that this is added just before your own Routes
 app.use(mbaasExpress.fhmiddleware());
 
-app.use('/hello', require('./lib/hello.js')());
 app.use('/api', bodyParser.json({limit: '10mb'}));
+
+app.use('/admin', adminRouter(mediator));
 
 /**
  * Session and Cookie configuration
@@ -44,7 +45,7 @@ var sessionOptions = {
     resave: false,
     saveUninitialized: true,
     cookie: {
-      secure: process.env.NODE_ENV !== 'development',
+      secure: process.env.NODE_ENV === 'production',
       httpOnly: true,
       path: '/'
     }
@@ -56,7 +57,7 @@ function run(cb) {
   var port = process.env.FH_PORT || process.env.OPENSHIFT_NODEJS_PORT || 8001;
   var host = process.env.OPENSHIFT_NODEJS_IP || '0.0.0.0';
 
-  sessionOptions.appCfg = {port: port, host:host};
+  sessionOptions.appCfg = {port: port, host: host};
 
   sessionInit(app, sessionOptions, function(err) {
     if (err) {
@@ -69,24 +70,32 @@ function run(cb) {
       if (err) {
         return cb(err);
       }
-      require('./lib/user')(mediator);
+      return require('./lib/user')(mediator).then(function() {
+        // Important that this is last!
+        app.use(mbaasExpress.errorHandler());
 
-      // Important that this is last!
-      app.use(mbaasExpress.errorHandler());
-      app.listen(port, host, function(err) {
-        cb(err, port);
+        app.listen(port, host, function(err) {
+          cb(err, port);
+        });
       });
     });
   });
 }
 
+module.exports = run;
 
+// We need to allow this file to be required with a node-style callback in order
+// to support unit testing since application initialization is async
+// But if this file is run directly it should just run the express application
+if (require.main === module) {
+  // file called directly, run app from here
+  run(function(err, port) {
+    if (err) {
+      return console.error(err);
+    }
+    console.log("App started at: " + new Date() + " on port: " + port);
+  });
+} else {
+  console.log('application.js required by another file, not running application');
 
-
-run(function(err, port) {
-  if (err) {
-    console.error(err);
-    process.exit(1);
-  }
-  console.log("App started at: " + new Date() + " on port: " + port);
-});
+}
