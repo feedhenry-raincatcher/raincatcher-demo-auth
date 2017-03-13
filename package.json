@@ -6,6 +6,7 @@
     "body-parser": "1.17.1",
     "cors": "2.7.1",
     "express": "4.15.2",
+    "fh-component-metrics": "2.4.1",
     "fh-mbaas-api": "6.1.8",
     "fh-wfm-mediator": "0.3.3",
     "fh-wfm-user": "0.6.2",
