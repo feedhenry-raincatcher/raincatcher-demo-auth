@@ -7,11 +7,42 @@ var bodyParser = require('body-parser');
 var raincatcherUser = require('fh-wfm-user/lib/mbaas');
 var sessionInit = require('./lib/sessionInit');
 var adminRouter = require('./lib/routes/admin');
+var fhComponentMetrics = require('fh-component-metrics');
 
 // list the endpoints which you want to make securable here
 var securableEndpoints;
 
 var app = express();
+
+function metricsEnabled(metricsCfg) {
+  return metricsCfg.enabled === 'true' && metricsCfg.host && metricsCfg.port;
+}
+
+var metricsConf = {
+  host: process.env.METRICS_HOST,
+  port: process.env.METRICS_PORT,
+  title: 'auth-svc-' + process.env.FH_TITLE,
+  enabled: process.env.METRICS_ENABLED || 'false',
+  cpu_interval: parseInt(process.env.METRICS_CPU_INTERVAL) || 2000,
+  mem_interval: parseInt(process.env.METRICS_MEM_INTERVAL) || 1000
+};
+
+if (metricsEnabled(metricsConf)) {
+  var metrics = fhComponentMetrics(metricsConf);
+  app.use(fhComponentMetrics.timingMiddleware(metricsConf.title, metricsConf));
+
+  metrics.memory(metricsConf.title, { interval: metricsConf.mem_interval }, function metricsMemCb(err) {
+    if (err) {
+      console.warn(err);
+    }
+  });
+
+  metrics.cpu(metricsConf.title, { interval: metricsConf.cpu_interval }, function metricsCpuCb(err) {
+    if (err) {
+      console.warn(err);
+    }
+  });
+}
 
 // Enable CORS for all requests
 app.use(cors());
