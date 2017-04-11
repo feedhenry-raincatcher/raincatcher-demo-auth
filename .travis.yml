@@ -11,7 +11,9 @@ before_install:
   - npm install grunt-cli -g
 script:
   - npm test
-  - bash <(curl https://gist.githubusercontent.com/raincatcher-bot/01ac4cdb3b0770bdb58489dbc17ed6b6/raw/6205a628c3616f6736fd866d5f0fba0a781ec1e4/sonarqube.sh)
+  - >-
+    bash <(curl
+    https://gist.githubusercontent.com/raincatcher-bot/01ac4cdb3b0770bdb58489dbc17ed6b6/raw/6205a628c3616f6736fd866d5f0fba0a781ec1e4/sonarqube.sh)
 install: npm install
 notifications:
   email: false
@@ -22,3 +24,6 @@ notifications:
       secure: >-
         KM083myZVOsE8cCoP4bJWLoG/HZkmYqK57o4n3DSHtq500q9/j/BJ2v7aL/AJhjk2IPm1dKKg0NPUO1zEHgKbmjg2xv/uektzbSuoTnyz9QMBq2MOj3n3BjOvn4yRpz2cTVBZHrwFeNzinKIx1L+WPCGBPb5hjeVohtwwZc0eMDirmsyrvPV29Tqjj0wSABds5+zm8OmZvGeQ78UES7ChgS4NtoRISoBPrwEKxhd8vjgnkaaCztVx/loIHYJyAilQDotk4Es3hnfMmHGfOSYwFuduDqNnq3kK4tvYs77UT1crQ0wo+D0shdtMLv334FfiCmTDBHNoukUFKjtK160uSIsVkYNOLB5RqxaxWq8RR/BkuKS/ACLByT7BJyjizg4TrJC6OUxTcHdFJstjI7Cos7r5Q/+JqYZPQ8t3THiYrk8NMhmPQRAC8PyNJwg3bZvGieYYPNCaYKUrdFOdko05NtQEb+WXjYmC2vY/Q0Urej8rjEApZA3sdCJDDHLzNo/GAFTzhaViaWai8WgAbFe6G+Lo6UxQAx9nWLBsVmeGT5t2NqNly7/RSerJHPlWyWfufAKP3tPNig6sBChQW/zfQ3I4GKyuyvKgb4TL5oJgEo/rPuczU/irSTDT/xsSrgHZEqp4+NFIsWtrks3kaAbWvUYqHTp0guXCTY+WmNtE0Y=
     on_pull_requests: false
+cache:
+  directories:
+    - node_modules
