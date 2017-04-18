@@ -8,8 +8,8 @@
     "express": "4.15.2",
     "fh-mbaas-api": "6.1.8",
     "fh-wfm-mediator": "0.3.4",
-    "fh-wfm-user": "0.6.0",
-    "lodash": "4.7.0",
+    "fh-wfm-user": "0.6.2",
+    "lodash": "4.17.4",
     "request": "2.78.0",
     "shortid": "^2.2.6"
   },
