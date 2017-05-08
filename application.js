@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var raincatcherUser = require('fh-wfm-user/lib/mbaas');
 var sessionInit = require('./lib/sessionInit');
 var adminRouter = require('./lib/routes/admin');
+var genuuid = require('uid-safe');
 
 // list the endpoints which you want to make securable here
 var securableEndpoints;
@@ -44,6 +45,11 @@ var sessionOptions = {
     secret: process.env.FH_COOKIE_SECRET || 'raincatcher',
     resave: false,
     saveUninitialized: true,
+    genid: function() {
+      //Generating a 24 character session token as required by $fh.auth
+      // (uid-save takes byteLength instead of character length)
+      return genuuid.sync(18);
+    },
     cookie: {
       secure: process.env.NODE_ENV === 'production',
       httpOnly: true,

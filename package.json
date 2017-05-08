@@ -1,6 +1,6 @@
 {
   "name": "fh-wfm-demo-auth",
-  "version": "2.3.0",
+  "version": "2.4.0",
   "dependencies": {
     "bluebird": "3.4.7",
     "body-parser": "1.17.1",
@@ -8,10 +8,11 @@
     "express": "4.15.2",
     "fh-mbaas-api": "~7.0.1",
     "fh-wfm-mediator": "0.3.4",
-    "fh-wfm-user": "0.6.2",
+    "fh-wfm-user": "0.6.4-pre.1",
     "lodash": "4.17.4",
     "request": "2.78.0",
-    "shortid": "^2.2.6"
+    "shortid": "2.2.6",
+    "uid-safe": "2.1.4"
   },
   "devDependencies": {
     "cross-env": "^3.1.4",
