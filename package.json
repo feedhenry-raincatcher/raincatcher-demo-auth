@@ -3,9 +3,9 @@
   "version": "2.3.0",
   "dependencies": {
     "bluebird": "3.4.7",
-    "body-parser": "1.17.1",
+    "body-parser": "1.17.2",
     "cors": "2.7.1",
-    "express": "4.15.2",
+    "express": "4.15.3",
     "fh-mbaas-api": "~7.0.9",
     "fh-wfm-mediator": "0.3.4",
     "fh-wfm-user": "0.6.6",
