@@ -1,14 +1,14 @@
 {
   "name": "fh-wfm-demo-auth",
-  "version": "2.4.0",
+  "version": "3.0.0",
   "dependencies": {
     "bluebird": "3.5.0",
     "body-parser": "1.17.2",
     "cors": "2.8.3",
     "express": "4.15.3",
     "fh-mbaas-api": "~7.0.9",
-    "fh-wfm-mediator": "0.3.4",
-    "fh-wfm-user": "0.6.6",
+    "fh-wfm-mediator": "1.0.0-pre.1",
+    "fh-wfm-user": "1.0.0-pre.2",
     "lodash": "4.17.4",
     "request": "2.81.0",
     "shortid": "^2.2.6"
